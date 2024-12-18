@@ -26,22 +26,15 @@ const addFood = async (req,res) =>{
 
 // All food list
 
-const listFood = async (req, res) => {
+const listFood = async (req,res) =>{
     try {
         const foods = await foodModel.find({});
-
-        // Add full path for image URLs
-        const foodsWithImagePath = foods.map(food => ({
-            ...food.toObject(),
-            image: `https://food-iksm.onrender.com/uploads/${food.image}`,
-        }));
-
-        res.status(200).json({ success: true, data: foodsWithImagePath });
+        res.json({success:true,data:foods})
     } catch (error) {
-        console.error(`Error fetching food list: ${error.message}`);
-        res.status(500).json({ success: false, message: 'Error fetching food list', error: error.message });
+        console.log(error)
+        res.json({success:false, message:'Error'})
     }
-};
+}
 
 
 // remove food item
